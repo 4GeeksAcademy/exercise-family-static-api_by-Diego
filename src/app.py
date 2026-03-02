@@ -30,12 +30,42 @@ def sitemap():
 
 
 @app.route('/members', methods=['GET'])
-def handle_hello():
+def get_family_members():
     # This is how you can use the Family datastructure by calling its methods
     members = jackson_family.get_all_members()
     response_body = {"hello": "world",
                      "family": members}
     return jsonify(response_body), 200
+
+@app.route('/members/<int:member_id>', methods=['GET'])
+def get_a_single_member(member_id):
+    # This is how you can use the Family datastructure by calling its methods
+    member = jackson_family.get_member(member_id)
+    if member:
+        return jsonify(member), 200
+  
+    return jsonify({"msg": "Familiar no encontrado"}), 404
+
+
+# This is how you can use the Family datastructure by calling its methods
+@app.route('/members', methods=['POST'])
+def add_family_member():
+    new_member = request.json
+    if not new_member:
+        return jsonify({"msg":"Los campos están incompletos"}), 400
+    
+    jackson_family.add_member(new_member)
+    return jsonify({"msg": f"{new_member['first_name']} ha sido añadido a la familia"}), 200
+
+
+
+ # This is how you can use the Family datastructure by calling its methods
+@app.route('/members/<int:member_id>', methods=['DELETE'])
+def delete_family_member(member_id):
+    erase_member=jackson_family.delete_member(member_id)
+    if erase_member:
+        return jsonify({"done": True, "msg": f"El familiar con el id {member_id} ha sido eliminado"}), 200
+    return jsonify({"msg":"No se pudo eliminar al familiar"}), 404
 
 
 
