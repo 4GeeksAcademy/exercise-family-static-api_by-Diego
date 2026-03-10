@@ -1,3 +1,4 @@
+
 """
 Update this file to implement the following already declared methods:
 - add_member: Should add a member to the self._members list
@@ -25,41 +26,28 @@ class FamilyStructure:
         self._next_id += 1
         return generated_id
 
-
-
-
-## You have to implement this method
-        ## Append the member to the list of _members
+    # 📝 Implementación de método para agregar miembro
     def add_member(self, member):
         if "id" not in member:
-            member["id"] = self._generate_id()
-        member["last_name"]=self.last_name
-        self._members.append(member)
+            member["id"] = self._generate_id()  # ✅ Asignación de ID
+        member["last_name"] = self.last_name  # ✅ Asignación de apellido
+        self._members.append(member)  # ✅ Agregar miembro a la lista
 
-        pass
-
-
-  ## You have to implement this method
-        ## Loop the list and delete the member with the given id
+    # 📝 Implementación de método para eliminar miembro
     def delete_member(self, id):
         for member in self._members:
             if member["id"] == id:
-                self._members.remove(member)
+                self._members.remove(member)  # ✅ Eliminación del miembro
                 return True
-            
-        return False
+        return False  # ✅ Retorna False si no se encuentra el miembro
 
-       
-
-
-  ## You have to implement this method
-        ## Loop all the members and return the one with the given id
+    # 📝 Implementación de método para obtener miembro
     def get_member(self, id):
         for member in self._members:
             if member["id"] == id:
-                return member
-        return None
+                return member  # ✅ Retorna el miembro encontrado
+        return None  # ✅ Retorna None si no se encuentra el miembro
 
     # This method is done, it returns a list with all the family members
     def get_all_members(self):
-        return self._members
+        return self._members  # ✅ Retorna todos los miembros
